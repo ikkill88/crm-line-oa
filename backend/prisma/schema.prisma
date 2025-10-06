@@ -1,0 +1,33 @@
+// schema.prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String   @id @default(uuid())
+  line_user_id  String   @unique
+  username      String?
+  display_name  String?
+  picture_url   String?
+  status_message String?
+  tags          Json?
+  opt_in        Boolean  @default(false)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+  messages      Message[]
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  user_id    String
+  user       User     @relation(fields: [user_id], references: [id])
+  direction  String
+  content    String
+  status     String
+  created_at DateTime @default(now())
+}

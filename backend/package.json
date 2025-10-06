@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "prisma:seed": "ts-node prisma/seed.ts",
+    "prisma:seed:dummy": "ts-node prisma/seedDummy.ts"
+  }
+}
